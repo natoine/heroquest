@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { t } from 'svelte-i18n';
+	import { goto, invalidateAll } from '$app/navigation';
+	import { page } from '$app/state';
 	import LanguageSwitcher from '$lib/components/ui/LanguageSwitcher.svelte';
+
+	const user = $derived(page.data.user ?? null);
+
+	async function handleLogout() {
+		await fetch('/api/auth/logout', { method: 'POST' });
+		await invalidateAll();
+		goto('/');
+	}
 </script>
 
 <header class="site-header">
@@ -13,6 +23,16 @@
 		<nav class="nav" aria-label="Main navigation">
 			<a href="/changelog" class="nav-link">{$t('nav.changelog')}</a>
 		</nav>
+
+		<div class="header-auth">
+			{#if user}
+				<a href="/account" class="username">🛡 {user.username}</a>
+				<button class="btn-ghost" onclick={handleLogout}>{$t('auth.logout')}</button>
+			{:else}
+				<a href="/login" class="btn-ghost">{$t('auth.login')}</a>
+				<a href="/register" class="btn btn-primary btn-xs">{$t('auth.register')}</a>
+			{/if}
+		</div>
 
 		<LanguageSwitcher />
 	</div>
@@ -69,4 +89,39 @@
 		transition: color var(--transition);
 	}
 	.nav-link:hover { color: var(--color-text-accent); }
+
+	.header-auth {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.username {
+		font-family: var(--font-display);
+		font-size: 0.85rem;
+		color: var(--color-text-accent);
+		text-decoration: none;
+		transition: color var(--transition);
+	}
+	.username:hover { color: var(--color-gold-light); }
+
+	.btn-ghost {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-family: var(--font-display);
+		font-size: 0.85rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		transition: color var(--transition);
+		text-decoration: none;
+		padding: var(--space-xs) var(--space-sm);
+	}
+	.btn-ghost:hover { color: var(--color-text-accent); }
+
+	.btn-xs {
+		padding: var(--space-xs) var(--space-md);
+		font-size: 0.8rem;
+	}
 </style>

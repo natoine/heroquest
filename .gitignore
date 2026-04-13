@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# SvelteKit
+.svelte-kit/
+build/
+
+# Database
+data/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

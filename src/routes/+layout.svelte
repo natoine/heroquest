@@ -1,10 +1,16 @@
 <script lang="ts">
 	import '../app.css';
 	import { isLoading } from 'svelte-i18n';
+	import { authUser } from '$lib/stores/auth';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
+
+	// Sync server-side user into client store on every navigation
+	$effect(() => {
+		authUser.set(data.user ?? null);
+	});
 </script>
 
 <svelte:head>
