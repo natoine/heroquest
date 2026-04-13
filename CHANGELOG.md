@@ -8,6 +8,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-04-13
+
+### Added
+- Table `activity_log` dans SQLite (type, meta JSON, created_at unix)
+- Helper `logActivity()` dans `src/lib/server/activity.ts` : ne lève jamais d'exception, loggue les erreurs en console
+- Types : `ActivityType` (6 valeurs), `ActivityMeta`, `ActivityRow`
+- Logs branchés sur toutes les routes : `account_created`, `login`, `account_deleted` (user & admin), `email_verification_sent`, `email_password_reset_sent`, `email_admin_access_sent`
+- `GET /api/admin/activity` : liste paginée (30/page), triée par date décroissante
+- `GET /api/admin/email-stats` : nombre d'emails par jour pour un mois donné (paramètres `year` et `month`), tous les jours remplis à 0 si absent
+- Dashboard admin enrichi avec 3 onglets chargés en lazy :
+  - **Utilisateurs** : tableau complet avec suppression + envoi de lien de réinitialisation
+  - **Activité** : log paginé avec badges colorés par type d'événement
+  - **Emails** : navigation mois par mois, tableau jour par jour avec visualisation en barres et total mensuel
+- 13 tests unitaires couvrant `logActivity()` et la logique de remplissage des jours du mois
+
+### Prompt log
+- `2026-04-13 | Onglet activité + stats emails dans le dashboard admin | src/lib/server/db.ts, src/lib/server/activity.ts, src/routes/api/admin/activity/+server.ts, src/routes/api/admin/email-stats/+server.ts, src/routes/admin/dashboard/+page.svelte, src/routes/api/auth/register/+server.ts, src/routes/api/auth/login/+server.ts, src/routes/api/auth/forgot-password/+server.ts, src/routes/api/account/delete/+server.ts, src/routes/api/admin/users/[id]/+server.ts, src/routes/api/admin/users/[id]/send-reset/+server.ts, src/routes/api/admin/request-access/+server.ts, src/lib/server/__tests__/activity.test.ts, CHANGELOG.md`
+
+## [0.3.0] — 2026-04-13
+
+### Added
+- Route `/admin` : formulaire email pour demander un accès (réponse toujours identique, ne révèle pas si l'email est admin)
+- Route `/admin/login?token=xxx` : vérifie le JWT admin, pose le cookie `hq_admin` (httpOnly, 4j), redirige vers `/admin/dashboard`
+- Route `/admin/dashboard` : protégée, affiche les stats utilisateurs (comptes créés / emails vérifiés)
+- `POST /api/admin/request-access` : génère un JWT `{ role: 'admin' }` signé avec `JWT_SECRET` (validité 4j), envoie le lien par email ; token loggué en console en dev si SMTP absent
+- Email `sendAdminAccessEmail` ajouté au service email
+- Variable d'environnement `ADMIN_EMAIL` dans `.env` et `.env.example`
+- Hook serveur mis à jour : vérifie le cookie `hq_admin` et positionne `locals.isAdmin`
+- Tests unitaires : 4 tests JWT admin (génération, rôle invalide, expiré, falsifié)
+
+### Prompt log
+- `2026-04-13 | Route /admin magic-link (modèle petitsemprunts) | src/routes/admin/+page.svelte, src/routes/admin/login/+page.server.ts, src/routes/admin/dashboard/+page.svelte, src/routes/admin/dashboard/+page.server.ts, src/routes/api/admin/request-access/+server.ts, src/lib/server/email.ts, src/hooks.server.ts, src/app.d.ts, .env, .env.example`
+
+
 ## [0.2.1] — 2026-04-13
 
 ### Added
@@ -58,5 +92,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-[Unreleased]: https://github.com/natoine/heroquest/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/natoine/heroquest/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/natoine/heroquest/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/natoine/heroquest/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/natoine/heroquest/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/natoine/heroquest/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/natoine/heroquest/releases/tag/v0.1.0

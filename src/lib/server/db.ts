@@ -30,6 +30,16 @@ db.exec(`
     created_at       INTEGER NOT NULL DEFAULT (unixepoch()),
     updated_at       INTEGER NOT NULL DEFAULT (unixepoch())
   );
+
+  CREATE TABLE IF NOT EXISTS activity_log (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    type       TEXT    NOT NULL,
+    meta       TEXT    NOT NULL DEFAULT '{}',
+    created_at INTEGER NOT NULL DEFAULT (unixepoch())
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_activity_created_at ON activity_log(created_at DESC);
+  CREATE INDEX IF NOT EXISTS idx_activity_type       ON activity_log(type);
 `);
 
 export default db;

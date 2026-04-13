@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import { randomBytes } from 'node:crypto';
 import db, { type UserRow } from '$lib/server/db';
 import { sendPasswordResetEmail } from '$lib/server/email';
+import { logActivity } from '$lib/server/activity';
 import { NODE_ENV } from '$env/static/private';
 import type { RequestHandler } from './$types';
 
@@ -31,6 +32,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		try {
 			await sendPasswordResetEmail(email, resetToken);
+			logActivity('email_password_reset_sent', { to: email });
 		} catch {
 			if (NODE_ENV === 'development') {
 				console.log(`[dev] Reset token for ${email}: ${resetToken}`);

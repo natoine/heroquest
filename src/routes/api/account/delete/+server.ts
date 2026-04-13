@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 import db, { type UserRow } from '$lib/server/db';
+import { logActivity } from '$lib/server/activity';
 import type { RequestHandler } from './$types';
 
 export const DELETE: RequestHandler = async ({ request, locals, cookies }) => {
@@ -19,7 +20,9 @@ export const DELETE: RequestHandler = async ({ request, locals, cookies }) => {
 	const match = await bcrypt.compare(body.password, user.password_hash);
 	if (!match) return json({ code: 'INVALID_PASSWORD' }, { status: 403 });
 
+	const { email, username } = locals.user;
 	db.prepare('DELETE FROM users WHERE id = ?').run(locals.user.id);
+	logActivity('account_deleted', { email, username, deleted_by: 'user' });
 
 	cookies.delete('hq_token', { path: '/' });
 

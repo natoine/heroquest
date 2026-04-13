@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { randomBytes } from 'node:crypto';
 import db from '$lib/server/db';
 import { sendVerificationEmail } from '$lib/server/email';
+import { logActivity } from '$lib/server/activity';
 import { NODE_ENV } from '$env/static/private';
 import type { RequestHandler } from './$types';
 
@@ -70,9 +71,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		`).run(email, username, passwordHash, verificationToken, tokenExpires);
 	}
 
-	// Send email (log token in dev if no SMTP configured)
+	if (!existing) {
+		logActivity('account_created', { email, username });
+	}
+
 	try {
 		await sendVerificationEmail(email, verificationToken);
+		logActivity('email_verification_sent', { to: email });
 	} catch {
 		if (NODE_ENV === 'development') {
 			console.log(`[dev] Verification token for ${email}: ${verificationToken}`);

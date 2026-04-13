@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 import db, { type UserRow } from '$lib/server/db';
 import { signToken } from '$lib/server/jwt';
+import { logActivity } from '$lib/server/activity';
 import type { RequestHandler } from './$types';
 
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7 days in seconds
@@ -34,6 +35,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 	db.prepare(`
 		UPDATE users SET last_login_at = unixepoch(), updated_at = unixepoch() WHERE id = ?
 	`).run(user.id);
+
+	logActivity('login', { email: user.email, username: user.username });
 
 	const token = signToken({ userId: user.id, email: user.email });
 
