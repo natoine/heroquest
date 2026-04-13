@@ -1,0 +1,80 @@
+{
+	"meta": {
+		"title": "HeroQuest — Browser Dungeon Crawler",
+		"description": "A multiplayer browser dungeon crawler inspired by the HeroQuest board game."
+	},
+	"nav": {
+		"play": "Play Now",
+		"howToPlay": "How to Play",
+		"changelog": "Changelog"
+	},
+	"landing": {
+		"hero": {
+			"title": "HeroQuest",
+			"tagline": "Brave the dungeon. Defeat the Warlock. Claim glory.",
+			"cta": "Play Now",
+			"secondary": "How to Play"
+		},
+		"heroes": {
+			"title": "Choose Your Hero",
+			"subtitle": "Four champions stand ready to face the darkness.",
+			"barbarian": {
+				"name": "Barbarian",
+				"description": "Raw power and unyielding strength. Deals devastating blows but wears no armour."
+			},
+			"dwarf": {
+				"name": "Dwarf",
+				"description": "Sturdy and reliable. Disarms traps and withstands punishment."
+			},
+			"elf": {
+				"name": "Elf",
+				"description": "Swift and precise. Masters both sword and sorcery."
+			},
+			"wizard": {
+				"name": "Wizard",
+				"description": "Keeper of arcane secrets. Unleashes powerful spells upon the enemy."
+			}
+		},
+		"howToPlay": {
+			"title": "How to Play",
+			"subtitle": "A dungeon awaits — three steps to adventure.",
+			"steps": {
+				"lobby": {
+					"title": "Create a Lobby",
+					"description": "Start a game and share the link with up to 4 friends. One becomes the Warlock Master."
+				},
+				"hero": {
+					"title": "Pick Your Hero",
+					"description": "Choose from Barbarian, Dwarf, Elf, or Wizard — each with unique stats and abilities."
+				},
+				"quest": {
+					"title": "Explore & Conquer",
+					"description": "Navigate rooms, fight monsters, find treasures. Complete quests to win."
+				}
+			}
+		},
+		"sessions": {
+			"title": "Open Lobbies",
+			"subtitle": "Join an adventure already in progress.",
+			"empty": "No open lobbies right now.",
+			"join": "Join",
+			"waiting": "waiting for players"
+		}
+	},
+	"footer": {
+		"tagline": "Inspired by the HeroQuest board game.",
+		"links": {
+			"changelog": "Changelog",
+			"github": "GitHub"
+		}
+	},
+	"hero": {
+		"stats": {
+			"move": "Movement",
+			"attack": "Attack",
+			"defend": "Defence",
+			"body": "Body Points",
+			"mind": "Mind Points"
+		}
+	}
+}

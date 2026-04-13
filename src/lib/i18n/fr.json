@@ -1,0 +1,80 @@
+{
+	"meta": {
+		"title": "HeroQuest — Dungeon Crawler Navigateur",
+		"description": "Un dungeon crawler multijoueur inspiré du jeu de plateau HeroQuest."
+	},
+	"nav": {
+		"play": "Jouer",
+		"howToPlay": "Comment jouer",
+		"changelog": "Journal des modifications"
+	},
+	"landing": {
+		"hero": {
+			"title": "HeroQuest",
+			"tagline": "Explorez le donjon. Vainquez le Sorcier. Récoltez la gloire.",
+			"cta": "Jouer maintenant",
+			"secondary": "Comment jouer"
+		},
+		"heroes": {
+			"title": "Choisissez votre Héros",
+			"subtitle": "Quatre champions sont prêts à affronter les ténèbres.",
+			"barbarian": {
+				"name": "Barbare",
+				"description": "Force brute et volonté inébranlable. Inflige des coups dévastateurs mais ne porte pas d'armure."
+			},
+			"dwarf": {
+				"name": "Nain",
+				"description": "Solide et fiable. Désamorce les pièges et encaisse les coups."
+			},
+			"elf": {
+				"name": "Elfe",
+				"description": "Rapide et précis. Maîtrise à la fois l'épée et la sorcellerie."
+			},
+			"wizard": {
+				"name": "Magicien",
+				"description": "Gardien des secrets arcaniques. Déchaîne de puissants sorts sur l'ennemi."
+			}
+		},
+		"howToPlay": {
+			"title": "Comment jouer",
+			"subtitle": "Un donjon vous attend — trois étapes vers l'aventure.",
+			"steps": {
+				"lobby": {
+					"title": "Créer un Lobby",
+					"description": "Démarrez une partie et partagez le lien avec jusqu'à 4 amis. L'un d'eux devient le Maître Sorcier."
+				},
+				"hero": {
+					"title": "Choisir son Héros",
+					"description": "Choisissez parmi Barbare, Nain, Elfe ou Magicien — chacun avec ses statistiques et capacités uniques."
+				},
+				"quest": {
+					"title": "Explorer et Conquérir",
+					"description": "Parcourez les salles, combattez les monstres, trouvez des trésors. Accomplissez les quêtes pour gagner."
+				}
+			}
+		},
+		"sessions": {
+			"title": "Parties en cours",
+			"subtitle": "Rejoignez une aventure déjà commencée.",
+			"empty": "Aucune partie ouverte pour l'instant.",
+			"join": "Rejoindre",
+			"waiting": "en attente de joueurs"
+		}
+	},
+	"footer": {
+		"tagline": "Inspiré du jeu de plateau HeroQuest.",
+		"links": {
+			"changelog": "Journal des modifications",
+			"github": "GitHub"
+		}
+	},
+	"hero": {
+		"stats": {
+			"move": "Déplacement",
+			"attack": "Attaque",
+			"defend": "Défense",
+			"body": "Points de Corps",
+			"mind": "Points d'Esprit"
+		}
+	}
+}
