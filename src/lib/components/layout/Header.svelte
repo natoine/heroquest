@@ -2,7 +2,7 @@
 	import { t } from 'svelte-i18n';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
-	import LanguageSwitcher from '$lib/components/ui/LanguageSwitcher.svelte';
+
 
 	const user = $derived(page.data.user ?? null);
 
@@ -33,8 +33,6 @@
 				<a href="/register" class="btn btn-primary btn-xs">{$t('auth.register')}</a>
 			{/if}
 		</div>
-
-		<LanguageSwitcher />
 	</div>
 </header>
 
